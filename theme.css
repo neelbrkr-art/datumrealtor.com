@@ -1,0 +1,287 @@
+import { useState } from "react";
+import { MapPin, Bed, Bath, Maximize, Filter, X } from "lucide-react";
+import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+
+export default function Properties() {
+  const [filters, setFilters] = useState({
+    type: "all",
+    minPrice: "",
+    maxPrice: "",
+    bedrooms: "all",
+    location: "",
+  });
+
+  const [showFilters, setShowFilters] = useState(false);
+
+  const properties = [
+    {
+      id: 1,
+      image: "https://images.unsplash.com/photo-1639405091806-01e8ab3cd13a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
+      title: "Modern Villa in Juhu",
+      price: "₹12.5 Cr",
+      location: "Juhu, Mumbai",
+      type: "Residential",
+      beds: 4,
+      baths: 3,
+      area: "3500 sq ft",
+      features: ["Swimming Pool", "Garden", "Parking"],
+    },
+    {
+      id: 2,
+      image: "https://images.unsplash.com/photo-1639751787355-bbc3ed1fd639?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
+      title: "Luxury Apartment",
+      price: "₹8.2 Cr",
+      location: "Bandra West, Mumbai",
+      type: "Residential",
+      beds: 3,
+      baths: 2,
+      area: "2200 sq ft",
+      features: ["Gym", "Club House", "Security"],
+    },
+    {
+      id: 3,
+      image: "https://images.unsplash.com/photo-1639663742190-1b3dba2eebcf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
+      title: "Penthouse Suite",
+      price: "₹15.8 Cr",
+      location: "Worli, Mumbai",
+      type: "Residential",
+      beds: 5,
+      baths: 4,
+      area: "4500 sq ft",
+      features: ["Sea View", "Private Terrace", "Elevator"],
+    },
+    {
+      id: 4,
+      image: "https://images.unsplash.com/photo-1639405069836-f82aa6dcb900?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
+      title: "Contemporary Home",
+      price: "₹9.5 Cr",
+      location: "Powai, Mumbai",
+      type: "Residential",
+      beds: 4,
+      baths: 3,
+      area: "3000 sq ft",
+      features: ["Lake View", "Balcony", "Parking"],
+    },
+    {
+      id: 5,
+      image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
+      title: "Commercial Office Space",
+      price: "₹18.5 Cr",
+      location: "BKC, Mumbai",
+      type: "Commercial",
+      beds: 0,
+      baths: 4,
+      area: "6000 sq ft",
+      features: ["Conference Rooms", "Parking", "Cafeteria"],
+    },
+    {
+      id: 6,
+      image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
+      title: "Retail Space",
+      price: "₹5.5 Cr",
+      location: "Andheri, Mumbai",
+      type: "Commercial",
+      beds: 0,
+      baths: 2,
+      area: "2500 sq ft",
+      features: ["High Footfall", "Corner Unit", "Parking"],
+    },
+  ];
+
+  return (
+    <div>
+      <section className="bg-gradient-to-r from-[var(--navy)] to-[var(--navy-light)] text-white py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-5xl mb-6">Property Listings</h1>
+          <p className="text-xl text-gray-300 max-w-3xl">
+            Discover your perfect property from our exclusive collection
+          </p>
+        </div>
+      </section>
+
+      <section className="py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center mb-8">
+            <div className="text-gray-600">
+              Showing <span className="text-[var(--navy)]" style={{ fontWeight: 600 }}>{properties.length}</span> properties
+            </div>
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className="flex items-center space-x-2 bg-[var(--navy)] text-white px-6 py-2 rounded-lg hover:bg-[var(--navy-light)] transition-colors"
+            >
+              <Filter className="h-5 w-5" />
+              <span>Filters</span>
+            </button>
+          </div>
+
+          {showFilters && (
+            <div className="bg-white p-6 rounded-xl shadow-lg mb-8 border border-gray-200">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl text-[var(--navy)]">Filter Properties</h3>
+                <button
+                  onClick={() => setShowFilters(false)}
+                  className="text-gray-500 hover:text-[var(--navy)]"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                <div>
+                  <label className="block text-sm mb-2 text-gray-700">Property Type</label>
+                  <select
+                    value={filters.type}
+                    onChange={(e) => setFilters({ ...filters, type: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)]"
+                  >
+                    <option value="all">All Types</option>
+                    <option value="residential">Residential</option>
+                    <option value="commercial">Commercial</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm mb-2 text-gray-700">Min Price (Cr)</label>
+                  <input
+                    type="text"
+                    placeholder="e.g., 5"
+                    value={filters.minPrice}
+                    onChange={(e) => setFilters({ ...filters, minPrice: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm mb-2 text-gray-700">Max Price (Cr)</label>
+                  <input
+                    type="text"
+                    placeholder="e.g., 20"
+                    value={filters.maxPrice}
+                    onChange={(e) => setFilters({ ...filters, maxPrice: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm mb-2 text-gray-700">Bedrooms</label>
+                  <select
+                    value={filters.bedrooms}
+                    onChange={(e) => setFilters({ ...filters, bedrooms: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)]"
+                  >
+                    <option value="all">Any</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                    <option value="5">5+</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm mb-2 text-gray-700">Location</label>
+                  <input
+                    type="text"
+                    placeholder="e.g., Mumbai"
+                    value={filters.location}
+                    onChange={(e) => setFilters({ ...filters, location: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)]"
+                  />
+                </div>
+              </div>
+
+              <div className="flex justify-end mt-4 space-x-3">
+                <button
+                  onClick={() => setFilters({ type: "all", minPrice: "", maxPrice: "", bedrooms: "all", location: "" })}
+                  className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  Clear All
+                </button>
+                <button
+                  onClick={() => setShowFilters(false)}
+                  className="px-6 py-2 bg-[var(--gold)] text-white rounded-lg hover:bg-[var(--gold-light)] transition-colors"
+                >
+                  Apply Filters
+                </button>
+              </div>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {properties.map((property) => (
+              <div key={property.id} className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <div className="relative h-56 overflow-hidden">
+                  <ImageWithFallback
+                    src={property.image}
+                    alt={property.title}
+                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                  />
+                  <div className="absolute top-4 right-4 bg-[var(--gold)] text-white px-3 py-1 rounded-full text-sm">
+                    {property.type}
+                  </div>
+                </div>
+
+                <div className="p-6">
+                  <div className="text-[var(--gold)] text-2xl mb-2" style={{ fontWeight: 600 }}>
+                    {property.price}
+                  </div>
+                  <h3 className="text-xl mb-2 text-[var(--navy)]">{property.title}</h3>
+                  <p className="text-gray-600 mb-4 flex items-center">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    {property.location}
+                  </p>
+
+                  <div className="grid grid-cols-3 gap-3 mb-4 text-sm text-gray-600">
+                    {property.beds > 0 && (
+                      <div className="flex items-center">
+                        <Bed className="h-4 w-4 mr-1 text-[var(--navy)]" />
+                        <span>{property.beds} Beds</span>
+                      </div>
+                    )}
+                    <div className="flex items-center">
+                      <Bath className="h-4 w-4 mr-1 text-[var(--navy)]" />
+                      <span>{property.baths} Baths</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Maximize className="h-4 w-4 mr-1 text-[var(--navy)]" />
+                      <span>{property.area}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {property.features.slice(0, 3).map((feature, idx) => (
+                      <span key={idx} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs">
+                        {feature}
+                      </span>
+                    ))}
+                  </div>
+
+                  <button className="w-full bg-[var(--navy)] text-white py-2 rounded-lg hover:bg-[var(--navy-light)] transition-colors">
+                    View Details
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl mb-4 text-[var(--navy)]">Property Locations</h2>
+            <p className="text-gray-600">Explore properties across Mumbai</p>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-lg p-4 h-96 flex items-center justify-center">
+            <div className="text-center text-gray-500">
+              <MapPin className="h-16 w-16 mx-auto mb-4 text-[var(--gold)]" />
+              <p>Interactive Google Maps integration would display here</p>
+              <p className="text-sm mt-2">Showing all property locations in Mumbai region</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

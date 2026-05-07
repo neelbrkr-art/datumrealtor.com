@@ -1,0 +1,293 @@
+import { useState } from "react";
+import { MapPin, Phone, Mail, Clock, Send, MessageSquare } from "lucide-react";
+import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+
+export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+    propertyType: "residential",
+  });
+
+  const [showChatbot, setShowChatbot] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+    alert("Thank you for your inquiry! Our team will contact you shortly.");
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+      propertyType: "residential",
+    });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  return (
+    <div>
+      <section className="bg-gradient-to-r from-[var(--navy)] to-[var(--navy-light)] text-white py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-5xl mb-6">Contact Us</h1>
+          <p className="text-xl text-gray-300 max-w-3xl">
+            Get in touch with our expert team. We're here to help you find your perfect property.
+          </p>
+        </div>
+      </section>
+
+      <section className="py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div className="bg-white p-8 rounded-xl shadow-lg text-center hover:shadow-xl transition-shadow">
+              <div className="bg-[var(--gold)]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <MapPin className="h-8 w-8 text-[var(--gold)]" />
+              </div>
+              <h3 className="text-xl mb-3 text-[var(--navy)]">Visit Us</h3>
+              <p className="text-gray-600">
+                123 Marine Drive<br />
+                Mumbai, Maharashtra<br />
+                India 400002
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-xl shadow-lg text-center hover:shadow-xl transition-shadow">
+              <div className="bg-[var(--gold)]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Phone className="h-8 w-8 text-[var(--gold)]" />
+              </div>
+              <h3 className="text-xl mb-3 text-[var(--navy)]">Call Us</h3>
+              <p className="text-gray-600">
+                +91 22 1234 5678<br />
+                +91 98765 43210<br />
+                Mon - Sat: 9AM - 7PM
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-xl shadow-lg text-center hover:shadow-xl transition-shadow">
+              <div className="bg-[var(--gold)]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Mail className="h-8 w-8 text-[var(--gold)]" />
+              </div>
+              <h3 className="text-xl mb-3 text-[var(--navy)]">Email Us</h3>
+              <p className="text-gray-600">
+                info@datumrealtors.com<br />
+                sales@datumrealtors.com<br />
+                support@datumrealtors.com
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+              <h2 className="text-3xl mb-6 text-[var(--navy)]">Send Us a Message</h2>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label className="block text-gray-700 mb-2">Full Name *</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)]"
+                    placeholder="John Doe"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-gray-700 mb-2">Email *</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)]"
+                      placeholder="john@example.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-700 mb-2">Phone *</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)]"
+                      placeholder="+91 98765 43210"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-gray-700 mb-2">Property Interest</label>
+                  <select
+                    name="propertyType"
+                    value={formData.propertyType}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)]"
+                  >
+                    <option value="residential">Residential</option>
+                    <option value="commercial">Commercial</option>
+                    <option value="investment">Investment Advisory</option>
+                    <option value="property-management">Property Management</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-gray-700 mb-2">Subject *</label>
+                  <input
+                    type="text"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)]"
+                    placeholder="How can we help you?"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-gray-700 mb-2">Message *</label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={5}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)]"
+                    placeholder="Tell us about your requirements..."
+                  ></textarea>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-[var(--navy)] text-white px-8 py-3 rounded-lg hover:bg-[var(--navy-light)] transition-colors flex items-center justify-center space-x-2"
+                >
+                  <Send className="h-5 w-5" />
+                  <span>Send Message</span>
+                </button>
+              </form>
+            </div>
+
+            <div>
+              <h2 className="text-3xl mb-6 text-[var(--navy)]">Office Hours</h2>
+              <div className="bg-white p-8 rounded-xl shadow-lg mb-8">
+                <div className="flex items-start space-x-4 mb-6">
+                  <Clock className="h-6 w-6 text-[var(--gold)] flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="text-lg mb-2 text-[var(--navy)]">Business Hours</h4>
+                    <div className="space-y-2 text-gray-600">
+                      <div className="flex justify-between">
+                        <span>Monday - Friday:</span>
+                        <span className="ml-4">9:00 AM - 7:00 PM</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Saturday:</span>
+                        <span className="ml-4">10:00 AM - 5:00 PM</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Sunday:</span>
+                        <span className="ml-4">Closed</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-t border-gray-200 pt-6">
+                  <p className="text-gray-600 mb-4">
+                    For urgent matters outside business hours, please call our emergency hotline:
+                  </p>
+                  <div className="text-[var(--gold)] text-xl" style={{ fontWeight: 600 }}>
+                    +91 90000 12345
+                  </div>
+                </div>
+              </div>
+
+              <h3 className="text-2xl mb-4 text-[var(--navy)]">Our Location</h3>
+              <div className="bg-white rounded-xl shadow-lg overflow-hidden h-80 flex items-center justify-center">
+                <div className="text-center text-gray-500">
+                  <MapPin className="h-16 w-16 mx-auto mb-4 text-[var(--gold)]" />
+                  <p>Google Maps integration would display here</p>
+                  <p className="text-sm mt-2">123 Marine Drive, Mumbai, India 400002</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-gray-50 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-gradient-to-r from-[var(--navy)] to-[var(--navy-light)] text-white rounded-2xl p-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div>
+                <h2 className="text-3xl mb-4">Schedule a Property Viewing</h2>
+                <p className="text-gray-300 mb-6">
+                  Book a personalized tour of any property in our listings. Our agents will guide you through
+                  every detail and answer all your questions.
+                </p>
+                <button className="bg-[var(--gold)] text-white px-8 py-3 rounded-lg hover:bg-[var(--gold-light)] transition-colors">
+                  Book a Viewing
+                </button>
+              </div>
+              <div className="rounded-xl overflow-hidden shadow-2xl">
+                <ImageWithFallback
+                  src="https://images.unsplash.com/photo-1587702068694-a909ef4aa346?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600"
+                  alt="Property viewing"
+                  className="w-full h-64 object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {showChatbot && (
+        <div className="fixed bottom-24 right-8 w-96 bg-white rounded-xl shadow-2xl border border-gray-200 z-50">
+          <div className="bg-[var(--navy)] text-white p-4 rounded-t-xl flex justify-between items-center">
+            <h3>DATUM Assistant</h3>
+            <button onClick={() => setShowChatbot(false)} className="hover:text-[var(--gold)]">×</button>
+          </div>
+          <div className="p-4 h-96 overflow-y-auto">
+            <div className="bg-gray-100 p-3 rounded-lg mb-4">
+              <p className="text-sm text-gray-700">
+                Hello! I'm the DATUM virtual assistant. How can I help you today?
+              </p>
+            </div>
+            <div className="text-center text-gray-500 text-sm">
+              AI chatbot would be integrated here for instant responses
+            </div>
+          </div>
+          <div className="p-4 border-t border-gray-200">
+            <input
+              type="text"
+              placeholder="Type your message..."
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)]"
+            />
+          </div>
+        </div>
+      )}
+
+      <button
+        onClick={() => setShowChatbot(!showChatbot)}
+        className="fixed bottom-8 right-8 bg-[var(--gold)] text-white w-16 h-16 rounded-full shadow-2xl hover:bg-[var(--gold-light)] transition-colors flex items-center justify-center z-40"
+      >
+        <MessageSquare className="h-7 w-7" />
+      </button>
+    </div>
+  );
+}

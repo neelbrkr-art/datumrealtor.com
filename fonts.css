@@ -1,0 +1,32 @@
+import { Link } from "react-router";
+import { Home, ArrowLeft } from "lucide-react";
+
+export default function NotFound() {
+  return (
+    <div className="min-h-[60vh] flex items-center justify-center">
+      <div className="text-center px-4">
+        <div className="text-[var(--gold)] text-9xl mb-4" style={{ fontWeight: 700 }}>404</div>
+        <h1 className="text-4xl mb-4 text-[var(--navy)]">Page Not Found</h1>
+        <p className="text-gray-600 mb-8 max-w-md mx-auto">
+          Oops! The page you're looking for doesn't exist. It might have been moved or deleted.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link
+            to="/"
+            className="inline-flex items-center space-x-2 bg-[var(--navy)] text-white px-8 py-3 rounded-lg hover:bg-[var(--navy-light)] transition-colors"
+          >
+            <Home className="h-5 w-5" />
+            <span>Go Home</span>
+          </Link>
+          <button
+            onClick={() => window.history.back()}
+            className="inline-flex items-center space-x-2 border border-[var(--navy)] text-[var(--navy)] px-8 py-3 rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            <ArrowLeft className="h-5 w-5" />
+            <span>Go Back</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

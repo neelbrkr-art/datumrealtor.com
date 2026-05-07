@@ -1,0 +1,236 @@
+import { Link } from "react-router";
+import { Search, MapPin, DollarSign, Home as HomeIcon, ArrowRight, Award, Users, Building } from "lucide-react";
+import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { useState } from "react";
+
+export default function Home() {
+  const [searchData, setSearchData] = useState({
+    location: "",
+    budget: "",
+    type: "residential",
+  });
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Searching with:", searchData);
+  };
+
+  return (
+    <div>
+      <section className="relative h-[600px] overflow-hidden">
+        <div className="absolute inset-0">
+          <ImageWithFallback
+            src="https://images.unsplash.com/photo-1756435292384-1bf32eff7baf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwzfHxsdXh1cnklMjByZWFsJTIwZXN0YXRlJTIwbW9kZXJuJTIwaG91c2V8ZW58MXx8fHwxNzc4MDg2Mzc4fDA&ixlib=rb-4.1.0&q=80&w=1080"
+            alt="Modern luxury real estate"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[var(--navy)]/90 to-[var(--navy)]/50"></div>
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+          <div className="text-white max-w-2xl">
+            <h1 className="text-5xl md:text-6xl mb-6" style={{ fontWeight: 700 }}>
+              Turning Dreams into <span className="text-[var(--gold)]">Addresses</span>
+            </h1>
+            <p className="text-xl mb-8 text-gray-200">
+              Find your perfect property with India's most trusted real estate partner
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                to="/properties"
+                className="bg-[var(--gold)] text-white px-8 py-3 rounded-lg hover:bg-[var(--gold-light)] transition-colors flex items-center space-x-2"
+              >
+                <span>View Listings</span>
+                <ArrowRight className="h-5 w-5" />
+              </Link>
+              <Link
+                to="/contact"
+                className="bg-white text-[var(--navy)] px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                Schedule Consultation
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white -mt-16 relative z-10">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <form
+            onSubmit={handleSearch}
+            className="bg-white rounded-xl shadow-2xl p-6 grid grid-cols-1 md:grid-cols-4 gap-4"
+          >
+            <div className="relative">
+              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[var(--navy)]" />
+              <input
+                type="text"
+                placeholder="Location"
+                value={searchData.location}
+                onChange={(e) => setSearchData({ ...searchData, location: e.target.value })}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)]"
+              />
+            </div>
+
+            <div className="relative">
+              <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[var(--navy)]" />
+              <input
+                type="text"
+                placeholder="Budget"
+                value={searchData.budget}
+                onChange={(e) => setSearchData({ ...searchData, budget: e.target.value })}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)]"
+              />
+            </div>
+
+            <div className="relative">
+              <HomeIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[var(--navy)]" />
+              <select
+                value={searchData.type}
+                onChange={(e) => setSearchData({ ...searchData, type: e.target.value })}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)] appearance-none"
+              >
+                <option value="residential">Residential</option>
+                <option value="commercial">Commercial</option>
+                <option value="land">Land</option>
+              </select>
+            </div>
+
+            <button
+              type="submit"
+              className="bg-[var(--navy)] text-white px-6 py-3 rounded-lg hover:bg-[var(--navy-light)] transition-colors flex items-center justify-center space-x-2"
+            >
+              <Search className="h-5 w-5" />
+              <span>Search</span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl mb-4 text-[var(--navy)]">Why Choose DATUM REALTORS?</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              We bring expertise, integrity, and innovation to every transaction
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-xl shadow-lg text-center hover:shadow-xl transition-shadow">
+              <div className="bg-[var(--gold)]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Award className="h-10 w-10 text-[var(--gold)]" />
+              </div>
+              <h3 className="text-xl mb-4 text-[var(--navy)]">Award Winning</h3>
+              <p className="text-gray-600">
+                Recognized as India's top real estate firm with over 50+ industry awards
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-xl shadow-lg text-center hover:shadow-xl transition-shadow">
+              <div className="bg-[var(--gold)]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Users className="h-10 w-10 text-[var(--gold)]" />
+              </div>
+              <h3 className="text-xl mb-4 text-[var(--navy)]">Expert Team</h3>
+              <p className="text-gray-600">
+                20+ certified real estate professionals with decades of combined experience
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-xl shadow-lg text-center hover:shadow-xl transition-shadow">
+              <div className="bg-[var(--gold)]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Building className="h-10 w-10 text-[var(--gold)]" />
+              </div>
+              <h3 className="text-xl mb-4 text-[var(--navy)]">Premium Properties</h3>
+              <p className="text-gray-600">
+                Exclusive access to 1000+ luxury residential and commercial properties
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl mb-4 text-[var(--navy)]">Featured Properties</h2>
+            <p className="text-gray-600">Handpicked premium listings for you</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                image: "https://images.unsplash.com/photo-1639405091806-01e8ab3cd13a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
+                title: "Modern Villa in Juhu",
+                price: "₹12.5 Cr",
+                location: "Juhu, Mumbai",
+                beds: 4,
+                baths: 3,
+              },
+              {
+                image: "https://images.unsplash.com/photo-1639751787355-bbc3ed1fd639?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
+                title: "Luxury Apartment",
+                price: "₹8.2 Cr",
+                location: "Bandra West, Mumbai",
+                beds: 3,
+                baths: 2,
+              },
+              {
+                image: "https://images.unsplash.com/photo-1639663742190-1b3dba2eebcf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
+                title: "Penthouse Suite",
+                price: "₹15.8 Cr",
+                location: "Worli, Mumbai",
+                beds: 5,
+                baths: 4,
+              },
+            ].map((property, idx) => (
+              <div key={idx} className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <div className="h-56 overflow-hidden">
+                  <ImageWithFallback
+                    src={property.image}
+                    alt={property.title}
+                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="text-[var(--gold)] text-2xl mb-2" style={{ fontWeight: 600 }}>
+                    {property.price}
+                  </div>
+                  <h3 className="text-xl mb-2 text-[var(--navy)]">{property.title}</h3>
+                  <p className="text-gray-600 mb-4 flex items-center">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    {property.location}
+                  </p>
+                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <span>{property.beds} Beds</span>
+                    <span>{property.baths} Baths</span>
+                  </div>
+                  <Link
+                    to="/properties"
+                    className="block text-center bg-[var(--navy)] text-white py-2 rounded-lg hover:bg-[var(--navy-light)] transition-colors"
+                  >
+                    View Details
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[var(--navy)] text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl mb-6">Ready to Find Your Dream Property?</h2>
+          <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+            Connect with our expert team today and let us help you find the perfect home or investment
+          </p>
+          <Link
+            to="/contact"
+            className="inline-block bg-[var(--gold)] text-white px-8 py-3 rounded-lg hover:bg-[var(--gold-light)] transition-colors"
+          >
+            Get Started
+          </Link>
+        </div>
+      </section>
+    </div>
+  );
+}
